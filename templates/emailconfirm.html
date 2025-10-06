@@ -1,0 +1,6 @@
+{% autoescape off %} Bienvenue sur Sanogo authentification Bonjour {{ name }}
+Confirmer votre adresse email en cliquant sur le lient suivant lien
+
+http://{{domain}}{% url 'activate' uidb64=uidb64 token=token %}
+
+{% endautoescape %}

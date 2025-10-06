@@ -1,0 +1,37 @@
+{% extends "base.html" %} {% block content %}
+
+<h2>Se Connecter Ici</h2>
+
+{% for message in messages %}
+
+<strong>{{ message }}</strong>
+
+{% endfor %}
+
+<form method="post" action="/login">
+  {% csrf_token %}
+
+  <label for="username">Username</label>
+  <input
+    type="text"
+    name="username"
+    id="username"
+    placeholder="Entrer ton Username"
+    required
+  />
+  <br /><br />
+
+  <label for="password">password</label>
+  <input
+    type="Password"
+    name="password"
+    id="password"
+    placeholder="Entrer ton password"
+    required
+  />
+  <br /><br />
+
+  <button type="submit">Se Connecter</button>
+</form>
+
+{% endblock %}

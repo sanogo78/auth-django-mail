@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3>S'enregister Ici</h3>
+
+{% for message in messages %}
+<strong>{{ message }}</strong>
+{% endfor %}
+
+<form method="POST" action="/register">
+    {% csrf_token %}
+
+    <label for="username">Username</label>
+    <input type="text" name="username" id="username" placeholder="Entrer ton Username" required> <br><br>
+
+    <label for="firstname">firstname</label>
+    <input type="text" name="firstname" id="firstname" placeholder="Entrer ton firstname" required> <br><br>
+
+    <label for="lastname">lastname</label>
+    <input type="text" name="lastname" id="lastname" placeholder="Entrer ton lastname" required> <br><br>
+
+    <label for="email">Email</label>
+    <input type="email" name="email" id="Email" placeholder="Entrer ton email" required> <br><br>
+
+    <label for="password">password</label>
+    <input type="password" name="password" id="password" placeholder="Entrer ton password" required> <br><br>
+
+    <label for="password1">password1</label>
+    <input type="password" name="password1" id="password1" placeholder="confirm ton password" required> <br><br>
+
+    <button type="submit">S'enregistrer</button>
+
+
+</form>
+    {% endblock  %}
