@@ -1,9 +1,8 @@
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
-from django.utils.encoding import force_bytes, force_text
+from django.utils.encoding import force_bytes, force_str
 from django.template.loader import render_to_string
 from django.contrib.sites.shortcuts import get_current_site
 from authentification import settings
-from email import message
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
@@ -81,13 +80,14 @@ def Login(request):
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(username=username, password=password)
-        my_user = User.objects.get(username=username)
         if user is not None:
             login(request, user)
             firstname = user.first_name
             return render(request, 'app/index.html', {'firstname': firstname})
-        elif my_user.is_active == False:
+        my_user = User.objects.filter(username=username).first()
+        if my_user is not None and my_user.is_active is False:
             messages.error(request, "Vous n'avez pas confirmer votre adress email, faite le avant de vous connecter ")
+            return redirect('login')
         else:
             messages.error(request, 'Mauvaise authentification')
             return redirect('login')
@@ -100,7 +100,7 @@ def logOut(request):
 
 def activate(request, uidb64, token):
     try:
-        uid = force_text(urlsafe_base64_decode(uid64))
+        uid = force_str(urlsafe_base64_decode(uidb64))
         user = User.objects.get(pk=uid)
     except(TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None

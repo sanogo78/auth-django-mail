@@ -1,0 +1,3 @@
+# Les parametres sensibles sont stockés dans un fichier .env et ne sont pas suivis par git grâce
+# Utiliser le fichier .env.example pour le paramétrage et le fichier .env pour les valeurs réelles
+.env
